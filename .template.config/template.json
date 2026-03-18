@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Abdullah-Albayati",
+  "classifications": [
+    "Web",
+    "API",
+    "ASP.NET Core"
+  ],
+  "identity": "BaseStructure.Template",
+  "name": "BaseStructure API Template",
+  "shortName": "basestructure",
+  "sourceName": "Template",
+  "defaultName": "MyApi",
+  "preferNameDirectory": true,
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sources": [
+    {
+      "exclude": [
+        "**/[Bb]in/**",
+        "**/[Oo]bj/**",
+        ".git/**",
+        ".github/**",
+        ".idea/**",
+        ".vs/**",
+        "**/*.user",
+        "**/*.suo",
+        "**/*.nupkg",
+        "**/*.snupkg",
+        ".template.config/**"
+      ]
+    }
+  ],
+  "primaryOutputs": [
+    {
+      "path": "Template/Template.csproj"
+    }
+  ],
+  "postActions": [
+    {
+      "condition": "(!skipRestore)",
+      "description": "Restore NuGet packages required by this project.",
+      "manualInstructions": [
+        {
+          "text": "Run 'dotnet restore'"
+        }
+      ],
+      "actionId": "210D431B-A78B-4D2F-B762-4ED3E3EA9025",
+      "continueOnError": true
+    }
+  ]
+}
+
+

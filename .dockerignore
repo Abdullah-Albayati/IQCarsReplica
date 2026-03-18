@@ -1,0 +1,48 @@
+# .NET build artifacts
+bin/
+obj/
+out/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]rm/
+[Aa]rm64/
+bld/
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio cache/options
+.vs/
+.vscode/
+
+# Database
+*.db
+*.db-shm
+*.db-wal
+
+# Logs
+*.log
+logs/
+
+# Secrets
+appsettings.Development.json
+appsettings.*.json
+!appsettings.json
+!appsettings.Production.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Rider
+.idea/

@@ -1,0 +1,35 @@
+@Template_HostAddress = http://localhost:5028
+@username = demoUser
+@password = Demo@123
+@token = replace-with-access-token
+
+GET {{Template_HostAddress}}/api/template/health
+Accept: application/json
+
+###
+
+POST {{Template_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "{{username}}",
+  "email": "demo@example.com",
+  "password": "{{password}}"
+}
+
+###
+
+POST {{Template_HostAddress}}/api/auth/login?username={{username}}&password={{password}}
+Accept: application/json
+
+###
+
+GET {{Template_HostAddress}}/api/auth/me
+Authorization: Bearer {{token}}
+Accept: application/json
+
+###
+
+POST {{Template_HostAddress}}/api/auth/refresh-token
+Accept: application/json
+
