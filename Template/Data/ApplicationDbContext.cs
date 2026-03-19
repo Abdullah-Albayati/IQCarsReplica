@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Template.Entities.CarEntity;
 using Template.Entities.User;
 
 namespace Template.Data;
@@ -10,6 +11,8 @@ public class ApplicationDbContext : DbContext
         : base(options) { }
 
     public DbSet<User> Users => Set<User>();
+    public DbSet<Car> Cars => Set<Car>();
+   
 }
 
 public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
