@@ -8,6 +8,7 @@ public class CarListing
     public Guid Id { get; set; }
     public int ListingOwnerId { get; set; }
     public string Name { get; set; } = String.Empty;
+    public string PhoneNumber { get; set; } = String.Empty;
     public string Make {get; set;} = String.Empty;
     public string Trim {get; set;} = String.Empty;
     public string Spec {get; set;} = String.Empty;
