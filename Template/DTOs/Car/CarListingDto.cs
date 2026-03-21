@@ -1,6 +1,6 @@
 namespace Template.DTOs;
 
-public class CarDto
+public class CarListingDto
 {
     public Guid Id { get; set; }
     public int ListingOwnerId { get; set; }

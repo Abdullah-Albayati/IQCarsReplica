@@ -3,7 +3,7 @@ namespace Template.Entities.CarEntity;
 
 using Template.Entities.User; 
 
-public class Car
+public class CarListing
 {
     public Guid Id { get; set; }
     public int ListingOwnerId { get; set; }

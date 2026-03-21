@@ -11,7 +11,7 @@ public class ApplicationDbContext : DbContext
         : base(options) { }
 
     public DbSet<User> Users => Set<User>();
-    public DbSet<Car> Cars => Set<Car>();
+    public DbSet<CarListing> Cars => Set<CarListing>();
    
 }
 

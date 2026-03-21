@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace Template.Validators.Car;
 
-public class CarUpdateValidator : AbstractValidator<CarUpdate>
+public class CarListingUpdateValidator : AbstractValidator<CarListingUpdate>
 {
-    public CarUpdateValidator()
+    public CarListingUpdateValidator()
     {
         // TODO: Add validation rules
     }

@@ -80,7 +80,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // CORS
 
-builder.Services.AddScoped<Template.Services.Car.ICarService, Template.Services.Car.CarService>();
+builder.Services.AddScoped<Template.Services.Car.ICarListingService, Template.Services.Car.CarListingService>();
 builder.Services.AddCors(options =>
 {
     var cors = builder.Configuration.GetSection("Cors");

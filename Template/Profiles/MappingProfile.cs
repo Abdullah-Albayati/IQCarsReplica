@@ -7,9 +7,9 @@ public class MappingProfile : Profile
     public MappingProfile()
     {
         // Add CreateMap<Source, Destination>() definitions here.
-        CreateMap<Template.Entities.CarEntity.Car, Template.DTOs.CarDto>();
-        CreateMap<Template.DTOs.CarForm, Template.Entities.CarEntity.Car>();
-        CreateMap<Template.DTOs.CarUpdate, Template.Entities.CarEntity.Car>()
+        CreateMap<Template.Entities.CarEntity.CarListing, Template.DTOs.CarListingDto>();
+        CreateMap<Template.DTOs.CarListingForm, Template.Entities.CarEntity.CarListing>();
+        CreateMap<Template.DTOs.CarListingUpdate, Template.Entities.CarEntity.CarListing>()
             .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
         CreateMap<Template.Entities.User.User, Template.DTOs.UserDto>()

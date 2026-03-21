@@ -9,19 +9,19 @@ namespace Template.Controllers.Car;
 [ApiController]
 [Route("api/[controller]")]
 
-public class CarController : ControllerBase
+public class CarListingController : ControllerBase
 {
-    private readonly ICarService _carService;
+    private readonly ICarListingService _carListingService;
 
-    public CarController(ICarService carService)
+    public CarListingController(ICarListingService carListingService)
     {
-        _carService = carService;
+        _carListingService = carListingService;
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<CarDto>> GetById(Guid id)
+    public async Task<ActionResult<CarListingDto>> GetById(Guid id)
     {
-        var result = await _carService.GetByIdAsync(id);
+        var result = await _carListingService.GetByIdAsync(id);
         
         if (result == null)
             return NotFound();
@@ -32,20 +32,20 @@ public class CarController : ControllerBase
     [HttpGet("{id}/User")]
     public async Task<ActionResult<UserDto>> GetUserById(Guid id)
     {
-        var car =  await _carService.GetByIdAsync(id);
+        var car =  await _carListingService.GetByIdAsync(id);
         if (car == null)
             return NotFound();
         
-        var user = await _carService.GetUserAsync(car.ListingOwnerId);
+        var user = await _carListingService.GetUserAsync(car.ListingOwnerId);
         if(user == null)
             return NotFound("User not found");
         
         return Ok(new {message = $"User Retrieved: {user.Username} "});
     }
     [HttpGet]
-    public async Task<ActionResult<List<CarDto>>> GetAll([FromQuery] CarFilter filter)
+    public async Task<ActionResult<List<CarListingDto>>> GetAll([FromQuery] CarListingFilter listingFilter)
     {
-        var (items, totalCount) = await _carService.GetAllAsync(filter);
+        var (items, totalCount) = await _carListingService.GetAllAsync(listingFilter);
         
         Response.Headers.Append("X-Total-Count", totalCount.ToString());
         
@@ -54,7 +54,7 @@ public class CarController : ControllerBase
 
     [Authorize]
     [HttpPost]
-    public async Task<ActionResult<CarDto>> Create([FromBody] CarForm form)
+    public async Task<ActionResult<CarListingDto>> Create([FromBody] CarListingForm listingForm)
     {
         var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (!int.TryParse(userIdClaim, out var listingOwnerId))
@@ -62,15 +62,15 @@ public class CarController : ControllerBase
             return Unauthorized("Invalid or missing user claim.");
         }
 
-        var result = await _carService.CreateAsync(form, listingOwnerId);
+        var result = await _carListingService.CreateAsync(listingForm, listingOwnerId);
         
         return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult<CarDto>> Update(Guid id, [FromBody] CarUpdate update)
+    public async Task<ActionResult<CarListingDto>> Update(Guid id, [FromBody] CarListingUpdate listingUpdate)
     {
-        var result = await _carService.UpdateAsync(id, update);
+        var result = await _carListingService.UpdateAsync(id, listingUpdate);
         
         if (result == null)
             return NotFound();
@@ -81,7 +81,7 @@ public class CarController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(Guid id)
     {
-        var success = await _carService.DeleteAsync(id);
+        var success = await _carListingService.DeleteAsync(id);
         
             return NotFound();
         

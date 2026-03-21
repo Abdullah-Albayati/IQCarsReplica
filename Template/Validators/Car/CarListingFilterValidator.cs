@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace Template.Validators.Car;
 
-public class CarFilterValidator : AbstractValidator<CarFilter>
+public class CarListingFilterValidator : AbstractValidator<CarListingFilter>
 {
-    public CarFilterValidator()
+    public CarListingFilterValidator()
     {
         RuleFor(x => x.PageNumber).GreaterThan(0);
         RuleFor(x => x.PageSize).GreaterThan(0).LessThanOrEqualTo(100);

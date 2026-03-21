@@ -1,6 +1,6 @@
 namespace Template.DTOs;
 
-public class CarForm
+public class CarListingForm
 {
     public string Name { get; set; } = String.Empty;
     public string Make { get; set; } = String.Empty;

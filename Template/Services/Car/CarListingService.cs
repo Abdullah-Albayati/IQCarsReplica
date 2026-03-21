@@ -6,34 +6,34 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Template.Services.Car;
 
-public interface ICarService
+public interface ICarListingService
 {
-    Task<CarDto?> GetByIdAsync(Guid id);
-    Task<(List<CarDto> items, int totalCount)> GetAllAsync(CarFilter filter);
+    Task<CarListingDto?> GetByIdAsync(Guid id);
+    Task<(List<CarListingDto> items, int totalCount)> GetAllAsync(CarListingFilter listingFilter);
     Task<UserDto> GetUserAsync(int id);
-    Task<CarDto> CreateAsync(CarForm form, int listingOwnerId);
-    Task<CarDto?> UpdateAsync(Guid id, CarUpdate update);
+    Task<CarListingDto> CreateAsync(CarListingForm listingForm, int listingOwnerId);
+    Task<CarListingDto?> UpdateAsync(Guid id, CarListingUpdate listingUpdate);
     Task<bool> DeleteAsync(Guid id);
 }
 
-public class CarService : ICarService
+public class CarListingService : ICarListingService
 {
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
 
-    public CarService(ApplicationDbContext context, IMapper mapper)
+    public CarListingService(ApplicationDbContext context, IMapper mapper)
     {
         _context = context;
         _mapper = mapper;
     }
 
-    public async Task<CarDto?> GetByIdAsync(Guid id)
+    public async Task<CarListingDto?> GetByIdAsync(Guid id)
     {
         var entity = await _context.Cars.FindAsync(id);
-        return entity == null ? null : _mapper.Map<CarDto>(entity);
+        return entity == null ? null : _mapper.Map<CarListingDto>(entity);
     }
 
-    public async Task<(List<CarDto> items, int totalCount)> GetAllAsync(CarFilter filter)
+    public async Task<(List<CarListingDto> items, int totalCount)> GetAllAsync(CarListingFilter listingFilter)
     {
         var query = _context.Cars.AsQueryable();
         
@@ -42,22 +42,22 @@ public class CarService : ICarService
         var totalCount = await query.CountAsync();
         
         var items = await query
-            .Skip((filter.PageNumber - 1) * filter.PageSize)
-            .Take(filter.PageSize)
+            .Skip((listingFilter.PageNumber - 1) * listingFilter.PageSize)
+            .Take(listingFilter.PageSize)
             .ToListAsync();
         
-        return (_mapper.Map<List<CarDto>>(items), totalCount);
+        return (_mapper.Map<List<CarListingDto>>(items), totalCount);
     }
 
-    public async Task<CarDto> CreateAsync(CarForm form, int listingOwnerId)
+    public async Task<CarListingDto> CreateAsync(CarListingForm listingForm, int listingOwnerId)
     {
-        var entity = _mapper.Map<Template.Entities.CarEntity.Car>(form);
+        var entity = _mapper.Map<Template.Entities.CarEntity.CarListing>(listingForm);
         entity.ListingOwnerId = listingOwnerId;
         
         _context.Cars.Add(entity);
         await _context.SaveChangesAsync();
         
-        return _mapper.Map<CarDto>(entity);
+        return _mapper.Map<CarListingDto>(entity);
     }
 
     public async Task<UserDto> GetUserAsync(int id)
@@ -65,19 +65,19 @@ public class CarService : ICarService
         var user = await _context.Users.FindAsync(id);
         return _mapper.Map<UserDto>(user);
     }
-    public async Task<CarDto?> UpdateAsync(Guid id, CarUpdate update)
+    public async Task<CarListingDto?> UpdateAsync(Guid id, CarListingUpdate listingUpdate)
     {
         var entity = await _context.Cars.FindAsync(id);
         
         if (entity == null)
             return null;
         
-        _mapper.Map(update, entity);
+        _mapper.Map(listingUpdate, entity);
         entity.UpdatedAt = DateTime.UtcNow;
         
         await _context.SaveChangesAsync();
         
-        return _mapper.Map<CarDto>(entity);
+        return _mapper.Map<CarListingDto>(entity);
     }
 
     public async Task<bool> DeleteAsync(Guid id)
