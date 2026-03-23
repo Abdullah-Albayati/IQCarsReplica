@@ -4,17 +4,16 @@ public class User
 {
     public enum UserRoles
     {
-        Customer,
-        Manager,
-        Owner,
-        Agent,
+        User,
+        Admin,
+        SuperAdmin
     }
 
     public int Id { get; set; }
     public string Username { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
     public string PasswordHash { get; set; } = string.Empty;
-    public UserRoles Role { get; set; } = UserRoles.Customer;
+    public UserRoles Role { get; set; } = UserRoles.User ;
     public string? RefreshToken { get; set; }
     public DateTime? RefreshTokenExpiry { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

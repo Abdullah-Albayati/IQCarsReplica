@@ -12,6 +12,12 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<User> Users => Set<User>();
     public DbSet<CarListing> Cars => Set<CarListing>();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<CarListing>().OwnsOne(c => c.Specifications);
+    }
    
 }
 
@@ -29,4 +35,5 @@ public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<Applicati
 
         return new ApplicationDbContext(optionsBuilder.Options);
     }
+    
 }

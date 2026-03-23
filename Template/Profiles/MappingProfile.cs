@@ -8,7 +8,13 @@ public class MappingProfile : Profile
     {
         // Add CreateMap<Source, Destination>() definitions here.
         CreateMap<Template.Entities.CarEntity.CarListing, Template.DTOs.CarListingDto>();
-        CreateMap<Template.DTOs.CarListingForm, Template.Entities.CarEntity.CarListing>();
+
+        CreateMap<Template.DTOs.CarSpecificationsDto, Template.Entities.CarEntity.CarSpecifications>();
+
+        CreateMap<Template.DTOs.CarListingForm, Template.Entities.CarEntity.CarListing>()
+            .ForMember(dest => dest.Specifications, opts => opts.MapFrom(src => src.Specifications))
+            .ForMember(dest => dest.Year, opts => opts.MapFrom(src => src.Year.ToString()));
+
         CreateMap<Template.DTOs.CarListingUpdate, Template.Entities.CarEntity.CarListing>()
             .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
@@ -27,7 +33,5 @@ public class MappingProfile : Profile
                 opts.MapFrom(src => Enum.Parse<Template.Entities.User.User.UserRoles>(src.Role!, true));
             })
             .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
-        
-      
     }
 }
